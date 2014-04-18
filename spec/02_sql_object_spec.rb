@@ -13,6 +13,18 @@ describe SQLObject do
       self.table_name = 'humans'
     end
   end
+  
+  describe '::columns' do
+    it 'returns columns in symbol form' do
+       expect(Cat.columns).to eq([:id, :name, :owner_id])
+    end
+    
+    it 'sets setter/getter methods' do
+      cat = Cat.new(name: 'Gizmo', owner_id: 1)
+  
+      expect(cat.name).to eq('Gizmo')
+    end
+ end
 
   describe '::set_table/::table_name' do
     it '::set_table_name sets table name' do
@@ -108,4 +120,5 @@ describe SQLObject do
       human.save
     end
   end
+  
 end
