@@ -65,15 +65,7 @@ class SQLObject < MassObject
 
   def insert
     p col_names = columns# .join(", ")
-   #  col_values = self.attribute_values
-   #  question_marks = ( ["?"] * @columns.count ).join(", ")
-   #  
-   # p DBConnection.execute(<<-SQL, *col_values )
-   #  INSERT INTO
-   #   #{self.table_name} #{col_names}
-   #   VALUES
-   #   #{question_marks}
-   #  SQL
+
   end
 
   def initialize(params = {} )
