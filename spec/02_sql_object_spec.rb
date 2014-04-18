@@ -21,7 +21,7 @@ describe SQLObject do
     
     it 'sets setter/getter methods' do
       cat = Cat.new(name: 'Gizmo', owner_id: 1)
-  
+      
       expect(cat.name).to eq('Gizmo')
     end
  end
