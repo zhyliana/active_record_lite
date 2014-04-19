@@ -68,7 +68,7 @@ class SQLObject < MassObject
     col_values = self.attribute_values
     question_marks = "(" + (["?"] * col_values.count ).join(", ") + ")"
      
-   DBConnection.execute(<<-SQL, *col_values)
+    DBConnection.execute(<<-SQL, *col_values)
     INSERT INTO
      #{self.class.table_name} (#{col_names})
      VALUES
