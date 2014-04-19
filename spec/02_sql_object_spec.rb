@@ -14,6 +14,13 @@ describe SQLObject do
     end
   end
   
+  describe '#attribute' do  
+    it "attributes" do
+     cat = Cat.new(name: 'Gizmo', owner_id: 1)
+     expect(cat.attributes).to eq(name: 'Gizmo', owner_id: 1)
+    end
+  end
+  
   describe '::columns' do
     it 'returns columns in symbol form' do
        expect(Cat.columns).to eq([:id, :name, :owner_id])

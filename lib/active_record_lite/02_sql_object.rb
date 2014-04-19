@@ -64,8 +64,18 @@ class SQLObject < MassObject
   end
 
   def insert
-    p col_names = columns# .join(", ")
-
+    col_names = attributes.keys.join(", ")
+    col_values = self.attribute_values
+    question_marks = "(" + (["?"] * col_values.count ).join(", ") + ")"
+     
+   DBConnection.execute(<<-SQL, *col_values)
+    INSERT INTO
+     #{self.class.table_name} (#{col_names})
+     VALUES
+     #{question_marks}
+    SQL
+    
+    self.id = DBConnection.last_insert_row_id
   end
 
   def initialize(params = {} )
@@ -79,14 +89,25 @@ class SQLObject < MassObject
   end
 
   def save
-    # ...
+    return self.insert if self.id.nil?
+    self.update
   end
 
   def update
-    # ...
+    set_line = attributes.keys[1..-1].map{ |col| "#{col} = ?"}.join(", ")
+    col_values = self.attribute_values[1..-1]
+    
+    DBConnection.execute(<<-SQL, *col_values, id)
+     UPDATE
+      #{self.class.table_name}
+     SET
+      #{set_line}
+     WHERE
+      id = ?
+     SQL
   end
 
   def attribute_values
-    self.attributes.map{ |attr_name| self.send(attr_name) }
+    attributes.values
   end
 end

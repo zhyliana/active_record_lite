@@ -8,5 +8,5 @@ module Searchable
 end
 
 class SQLObject
-  # Mixin Searchable here...
+  self.keys.map { |key| "#{key} = ?" }
 end
